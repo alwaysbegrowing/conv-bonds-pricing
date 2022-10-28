@@ -36,7 +36,9 @@ function App() {
         return std;
       };
 
-      const historicalVolitility = getSd();
+      const stdPriceDifferences = getSd();
+      const historicalVolitility = stdPriceDifferences * Math.sqrt(365);
+      console.log(historicalVolitility);
     };
     getMarketData();
   }, []);
