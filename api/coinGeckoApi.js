@@ -7,7 +7,7 @@ const fetch = require("node-fetch");
 
 export default async function handler(request, response) {
   //USDC contractAddress
-  const contractAddress = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
+  const { contractAddress } = request.query;
 
   //URL for obtaining the last 365 days of pricing for a particular contract on ethereum's network in USD
 

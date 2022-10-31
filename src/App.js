@@ -1,19 +1,28 @@
 import "antd/dist/antd.min.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DatePicker } from "antd";
 
 //Enter parameters here (Token contract address; Expiration data; Strike Price)
 //Output the result of the equation here
 
 function App() {
+  const [underlyingPrice, setUnderlyingPrice] = useState();
+  const [time, setTime] = useState();
+  const [volatility, setVolatility] = useState();
+  const contractAddress = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
+
   useEffect(() => {
     const getMarketData = async () => {
-      const marketData = await fetch("api/coinGeckoApi");
+      const marketData = await fetch(
+        `api/coinGeckoApi?contractAddress=${contractAddress}`
+      );
       const marketDataJson = await marketData.json();
       const prices = marketDataJson.data.prices;
 
       const priceArray = [];
       prices.map((array) => priceArray.push(array[1]));
+
+      setUnderlyingPrice(priceArray[365]);
 
       const naturalLogsPrices = [];
 
@@ -38,10 +47,27 @@ function App() {
 
       const stdPriceDifferences = getSd();
       const historicalVolitility = stdPriceDifferences * Math.sqrt(365);
-      console.log(historicalVolitility);
+      setVolatility(historicalVolitility);
     };
     getMarketData();
   }, []);
+
+  //
+
+  const fs = underlyingPrice;
+  const t = 0.5;
+  const v = volatility;
+
+  useEffect(() => {
+    const getBSData = async () => {
+      const data = await (
+        await fetch(`api/getBSEstimate?fs=${fs}&t=${t}&v=${v}`)
+      ).json();
+      const value = await data[0];
+      console.log(value);
+    };
+    getBSData();
+  }, [fs, v]);
 
   return (
     <div className="App">
