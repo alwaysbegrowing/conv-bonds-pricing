@@ -11,6 +11,7 @@ import {
   Statistic,
 } from "antd";
 import { GithubOutlined } from "@ant-design/icons";
+import "./App.less";
 
 const { Header, Footer, Content } = Layout;
 

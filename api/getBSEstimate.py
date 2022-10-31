@@ -348,7 +348,7 @@ class handler(BaseHTTPRequestHandler):
         # fs = 90
         x = 1
         # t = 0.5
-        r = 0.3
+        r = 0.03
         b = 0
         # v = 0.15
 
