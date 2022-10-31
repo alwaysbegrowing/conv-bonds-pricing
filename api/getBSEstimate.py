@@ -58,7 +58,7 @@ class _GBS_Limits:
 
     MAX_b = 1
     MAX_r = 1
-    MAX_V = 1
+    MAX_V = 20
 
 # This class defines the Exception that gets thrown when invalid input is placed into the GBS function
 class GBS_InputError(Exception):
@@ -343,14 +343,13 @@ def _test_option_type(option_type):
     if (option_type != "c") and (option_type != "p"):
         raise GBS_InputError("Invalid Input option_type ({0}). Acceptable value are: c, p".format(option_type))
 
-print('hi')
 class handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         # fs = 90
-        x = 100
+        x = 1
         # t = 0.5
-        r = 0.1
+        r = 0.3
         b = 0
         # v = 0.15
 
@@ -360,10 +359,15 @@ class handler(BaseHTTPRequestHandler):
 
         query_components = parse_qs(urlparse(self.path).query)
         fs = float(query_components['fs'][0])
+        print(fs)
         t = float(query_components['t'][0])
+        print(t)
         v = float(query_components['v'][0])
+        print(v)
+
 
         message = _american_option('c', fs, x, t, r, b, v)
         data = json.dumps(message)
+        print(data)
         self.wfile.write(data.encode())
         return 
