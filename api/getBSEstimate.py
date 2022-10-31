@@ -23,7 +23,6 @@ from scipy.stats import mvn
 # normally this is set to False
 _DEBUG = False
 
-print('love u')
 # This class contains the limits on inputs for GBS models
 # It is not intended to be part of this module's public interface
 class _GBS_Limits:
@@ -359,11 +358,8 @@ class handler(BaseHTTPRequestHandler):
 
         query_components = parse_qs(urlparse(self.path).query)
         fs = float(query_components['fs'][0])
-        print(fs)
         t = float(query_components['t'][0])
-        print(t)
         v = float(query_components['v'][0])
-        print(v)
 
 
         message = _american_option('c', fs, x, t, r, b, v)

@@ -26,9 +26,6 @@ function App() {
   const [bondValue, setBondValue] = useState();
   const inputRef = useRef(null);
 
-  console.log(volatility);
-  console.log(bondValue);
-
   // const contractAddress = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
 
   useEffect(() => {
@@ -66,7 +63,6 @@ function App() {
       };
 
       const stdPriceDifferences = getSd();
-      console.log(stdPriceDifferences);
       const historicalVolitility = stdPriceDifferences * Math.sqrt(365);
       setVolatility(historicalVolitility);
     };
@@ -76,7 +72,6 @@ function App() {
   const v = volatility;
   const t = time;
   const fs = underlyingPrice * ratio;
-  // const x = strikePrice;
 
   useEffect(() => {
     const getBSData = async () => {
