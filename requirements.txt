@@ -1,5 +1,2 @@
 numpy == 1.*
-json == *
 scipy == *
-urllib == *
-http == *
