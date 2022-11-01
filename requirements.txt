@@ -1,2 +1,2 @@
 numpy == 1.*
-scipy == *
+scipy == 1.9
