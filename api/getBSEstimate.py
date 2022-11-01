@@ -12,8 +12,6 @@ from urllib.parse import parse_qs
 
 # import necessary libaries
 import math
-from sqlite3 import paramstyle
-from symbol import parameters
 import numpy as np
 import json
 from scipy.stats import norm
