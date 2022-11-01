@@ -1,2 +1,1 @@
-numpy == 1.*
-scipy.stats == 1.9
+numpy == 1.2*
