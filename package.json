@@ -16,6 +16,11 @@
     "vercel": "^28.4.12",
     "web-vitals": "^2.1.4"
   },
+  "functions": {
+    "api/**/*.py": {
+      "excludeFiles": "public/**"
+    }
+  },
   "scripts": {
     "start": "craco start",
     "build": "craco build",

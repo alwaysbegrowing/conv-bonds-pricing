@@ -15,6 +15,9 @@ import "./App.less";
 
 const { Header, Footer, Content } = Layout;
 
+const functionUrl =
+  "https://cuk4xyewzl.execute-api.us-east-1.amazonaws.com/beta/";
+
 //Enter parameters here (Token contract address; Expiration data; Strike Price)
 //Output the result of the equation here
 
@@ -35,12 +38,13 @@ function App() {
         `api/coinGeckoApi?contractAddress=${contractAddress}`
       );
       const marketDataJson = await marketData?.json();
+
       const prices = marketDataJson.data.prices;
 
       const priceArray = [];
       prices?.map((array) => priceArray.push(array[1]));
 
-      setUnderlyingPrice(priceArray[365]);
+      setUnderlyingPrice(priceArray[364]);
 
       const naturalLogsPrices = [];
 
@@ -76,14 +80,12 @@ function App() {
 
   useEffect(() => {
     const getBSData = async () => {
-      const data = await (
-        await fetch(`api/getBSEstimate?fs=${fs}&t=${t}&v=${v}`)
-      ).json();
+      const data = await fetch(functionUrl);
       const value = await data[0];
       setBondValue(value);
     };
     getBSData();
-  }, [fs, t, v]);
+  }, []);
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
