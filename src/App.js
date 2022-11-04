@@ -92,10 +92,8 @@ function App() {
 
   const interestRate = () => {
     if (interest >= 0) {
-      console.log("hi");
       return interest + "%";
     } else {
-      console.log("hi2");
       return "0%";
     }
   };
