@@ -9,8 +9,9 @@ import {
   Input,
   Space,
   Statistic,
+  ConfigProvider,
 } from "antd";
-import { GithubOutlined } from "@ant-design/icons";
+import { GithubOutlined, SmileOutlined } from "@ant-design/icons";
 import "./App.less";
 
 const { Header, Footer, Content } = Layout;
@@ -22,6 +23,7 @@ function App() {
   const [contractAddress, setContractAddress] = useState();
   const [ratio, setRatio] = useState();
   const [bondValue, setBondValue] = useState();
+  const [noData, setNoData] = useState(true);
   const inputRef = useRef(null);
 
   const interest = bondValue * 100;
@@ -83,9 +85,20 @@ function App() {
       ).json();
       const value = await data[0];
       setBondValue(value);
+      setNoData(false);
     };
     getBSData();
   }, [v, t, fs]);
+
+  const interestRate = () => {
+    if (interest >= 0) {
+      console.log("hi");
+      return interest + "%";
+    } else {
+      console.log("hi2");
+      return "0%";
+    }
+  };
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -224,7 +237,8 @@ function App() {
             <Col span={2}></Col>
             <Col span={20}>
               <Statistic title="Recommended Bond Price" value={bondValue} />
-              <Statistic title="Interest Rate" value={interest + "%"} />
+
+              <Statistic title="Interest Rate" value={interestRate()} />
             </Col>
           </Row>
         </Space>
