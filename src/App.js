@@ -15,12 +15,6 @@ import "./App.less";
 
 const { Header, Footer, Content } = Layout;
 
-const functionUrl =
-  "https://cuk4xyewzl.execute-api.us-east-1.amazonaws.com/beta/";
-
-//Enter parameters here (Token contract address; Expiration data; Strike Price)
-//Output the result of the equation here
-
 function App() {
   const [underlyingPrice, setUnderlyingPrice] = useState();
   const [time, setTime] = useState();
@@ -29,6 +23,8 @@ function App() {
   const [ratio, setRatio] = useState();
   const [bondValue, setBondValue] = useState();
   const inputRef = useRef(null);
+
+  const interest = bondValue * 100;
 
   // const contractAddress = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
 
@@ -79,13 +75,17 @@ function App() {
   const fs = underlyingPrice * ratio;
 
   useEffect(() => {
+    const functionUrl = `https://cuk4xyewzl.execute-api.us-east-1.amazonaws.com/prod/`;
+
     const getBSData = async () => {
-      const data = await fetch(functionUrl);
+      const data = await (
+        await fetch(functionUrl + `?v=${v}&t=${t}&fs=${fs}`)
+      ).json();
       const value = await data[0];
       setBondValue(value);
     };
     getBSData();
-  }, []);
+  }, [v, t, fs]);
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -224,6 +224,7 @@ function App() {
             <Col span={2}></Col>
             <Col span={20}>
               <Statistic title="Recommended Bond Price" value={bondValue} />
+              <Statistic title="Interest Rate" value={interest + "%"} />
             </Col>
           </Row>
         </Space>
