@@ -141,7 +141,7 @@ function App() {
             <b>This is only an estimate.</b> Due to the volatility of
             tokens as well as the assumptions required to calculate the option
             pricing, exact calculations cannot be made and caution should be
-            used when considering pricing bonds.
+            used when considering pricing bonds. These are also ultimately priced by the market and could vary significantly from what is mentioned here.
           </p>
           <b>Assumptions</b>
           <p>
