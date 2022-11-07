@@ -1,70 +1,54 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<h1>Call Option Pricing</h1>
+<h2>Run yarn to install modules and yarn start to open a local server</h2>
+<p>
+This is a tool to help price Arbor bonds. Using the
+Bjerksund-Stensland (2002) model of call option pricing, this tool
+will provide an estimate of the price of the bond as a call option.
+</p>
+<p>
+<b>This is only an estimate.</b> Due to the volatility of blockchain
+tokens as well as the assumptions required to calculate the option
+pricing, exact calculations cannot be made and caution should be
+used when considering pricing bonds.
+</p>
+<b>Assumptions</b>
+<p>
+This model considers the current market price of the selected token,
+the historical volitility of the token, and the amount of time until
+the bond expires. Risk free rate is set to 0.03% and the strike
+price is set to $1. Due to no bonds being currently offerred on the
+market, historical volitility is used instead of implied volitility.
+The algorithm was forked from{" "}
+<a href="https://github.com/dedwards25/Python_Option_Pricing/blob/master/GBS.ipynb">
+    this repo
+</a>
+.
+</p>
+Three inputs are accepted:
+<p>
+<li>
+    <b>1. Contract Address:</b> This is the address of the token you
+    are interested in using as collateral.
+</li>
+<li>
+    <b>2. Time Until Bond Expiration:</b> This is the amount of time
+    (in years) until the bonds will expire.
+</li>
+<li>
+    <b>3. Convertability Ratio:</b> This is how much of the underlying
+    collateral you plan to allow bond holders to redeem their bond
+    for.
+</li>
+</p>
+<p>
+For example, ABC DAO is interested in selling to bonds and will be
+using 15 million USD worth of their native token (ABC) as
+collateral. ABC DAO would enter their contract address
+(0x000000000), how long until they plan for the bonds to expire
+(e.g. 1 for 1 year), and the convertability ratio. Since one ABC
+token is work 0.05 USD, they plan to allow bond holders to pay $1
+for 10 tokens (i.e. 0.50 USD). If ABC DAO's token rises above 0.10
+USD per token, bond holders could then pay $1 for 10 ABC tokens,
+thereby earning converting their bond into ABC tokens and earning a
+yield.
+</p>
