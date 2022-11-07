@@ -26,7 +26,7 @@ function App() {
   const [noData, setNoData] = useState(true);
   const inputRef = useRef(null);
 
-  const interest = bondValue * 100;
+  const interest = (bondValue * 100) / time
 
   // const contractAddress = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
 
@@ -92,7 +92,7 @@ function App() {
 
   const interestRate = () => {
     if (interest >= 0) {
-      return interest + "%";
+      return interest?.toLocaleString() + "%";
     } else {
       return "0%";
     }
@@ -131,24 +131,24 @@ function App() {
         </Row>
       </Header>
       <Content>
-        <PageHeader style={{ backgroundColor: "#fff" }} title="Bonds Pricing">
+        <PageHeader style={{ backgroundColor: "#fff" }} title="Call Option Pricing">
           <p>
-            This is a tool to help price Arbor bonds. Using the
+            This is a tool to help price the call options embedded in Arbor convertible bonds. Using the
             Bjerksund-Stensland (2002) model of call option pricing, this tool
-            will provide an estimate of the price of the bond as a call option.
+            will provide an estimate of the value of the call option.
           </p>
           <p>
-            <b>This is only an estimate.</b> Due to the volatility of blockchain
+            <b>This is only an estimate.</b> Due to the volatility of
             tokens as well as the assumptions required to calculate the option
             pricing, exact calculations cannot be made and caution should be
-            used when considering pricing bonds.
+            used when considering pricing bonds. These are also ultimately priced by the market and could vary significantly from what is mentioned here.
           </p>
           <b>Assumptions</b>
           <p>
             This model considers the current market price of the selected token,
             the historical volitility of the token, and the amount of time until
-            the bond expires. Risk free rate is set to 0.03% and the strike
-            price is set to $1. Due to no bonds being currently offerred on the
+            the bond expires. Risk free rate is set to 3% and the strike
+            price is set to the par value of the bonds ($1). Due to no options being currently offerred on the
             market, historical volitility is used instead of implied volitility.
             The algorithm was forked from{" "}
             <a href="https://github.com/dedwards25/Python_Option_Pricing/blob/master/GBS.ipynb">
@@ -159,37 +159,34 @@ function App() {
           Three inputs are accepted:
           <p>
             <li>
-              <b>1. Contract Address:</b> This is the address of the token you
-              are interested in using as collateral.
+              <b>1. Contract Address:</b> This is the address of underlying token that the bonds are convertible into.
             </li>
             <li>
-              <b>2. Time Until Bond Expiration:</b> This is the amount of time
-              (in years) until the bonds will expire.
+              <b>2. Time Until Bond Maturity:</b> This is the amount of time
+              (in years) until the bonds reach thier maturity date.
             </li>
             <li>
               <b>3. Convertability Ratio:</b> This is how much of the underlying
-              collateral you plan to allow bond holders to redeem their bond
+              token you plan to allow bond holders to redeem each bond for
               for.
             </li>
           </p>
           <p>
-            For example, ABC DAO is interested in selling to bonds and will be
+            For example, ABC DAO is interested in selling bonds and will be
             using 15 million USD worth of their native token (ABC) as
             collateral. ABC DAO would enter their contract address
             (0x000000000), how long until they plan for the bonds to expire
-            (e.g. 1 for 1 year), and the convertability ratio. Since one ABC
-            token is work 0.05 USD, they plan to allow bond holders to pay $1
+            (e.g. 1 for 1 year, .5 for 6 months), and the convertability ratio (one bond should convert into X of the underlying). Since one ABC
+            token is worth 0.05 USD, they plan to allow bond holders to pay $1
             for 10 tokens (i.e. 0.50 USD). If ABC DAO's token rises above 0.10
-            USD per token, bond holders could then pay $1 for 10 ABC tokens,
-            thereby earning converting their bond into ABC tokens and earning a
-            yield.
+            USD per token, bond holders could forfit the par value and instead convert each bond into 10 ABC token and sell them SPOT for a profit.
           </p>
         </PageHeader>
         <Space direction="vertical" size="middle" style={{ display: "flex" }}>
           <Row>
             <Col span={2}></Col>
             <Col span={20}>
-              <div>Contract Address:</div>
+              <div>Underlying token address:</div>
               <Input
                 placeholder="Contract Address"
                 value={contractAddress}
@@ -204,7 +201,7 @@ function App() {
           <Row>
             <Col span={2}></Col>
             <Col span={20}>
-              <div>Time Until Bond Expiration:</div>
+              <div>Time until bond expiration:</div>
               <Input
                 placeholder="Time to Expiration"
                 value={time}
@@ -219,7 +216,7 @@ function App() {
           <Row>
             <Col span={2}></Col>
             <Col span={20}>
-              <div>Convertability Ratio:</div>
+              <div>Number of underlying one bond converts into:</div>
               <Input
                 placeholder="Convertability Ratio"
                 value={ratio}
@@ -234,9 +231,9 @@ function App() {
           <Row>
             <Col span={2}></Col>
             <Col span={20}>
-              <Statistic title="Recommended Bond Price" value={bondValue} />
+              <Statistic title="Approx value of convertibility" value={bondValue?.toLocaleString()} />
 
-              <Statistic title="Interest Rate" value={interestRate()} />
+              <Statistic title="Approx interest rate reduction" value={interestRate()} />
             </Col>
           </Row>
         </Space>
